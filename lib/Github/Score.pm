@@ -8,10 +8,9 @@ use URI;
 
 use Moose; # automatically turns on strict and warnings
 
-  has 'ua' => (is => 'rw' , trigger => \&_ua);
-  has 'user' => (is => 'rw', trigger => \&_user);
-  has 'json' => (is => 'rw',trigger => \&_json);
-  has 'uri' => (is => 'rw',,trigger => \&_uri);
+  has 'user' => (is => 'rw', );
+  has 'repo' => (is => 'rw', );
+  has 'timeout' => (is => 'rw', );
 
   sub clear {
       my $self = shift;
@@ -49,12 +48,12 @@ use Moose; # automatically turns on strict and warnings
      bless { user => $args{user}, repo => $args{repo}, timeout => $timeout }, $self;
  }
  
- sub _ua { LWP::UserAgent->new( timeout => $_[0]->timeout, agent => join ' ', ( __PACKAGE__, $VERSION ) ); }
- sub _user    { $_[0]->{user} }
- sub repo    { $_[0]->{repo} }
- sub timeout { $_[0]->{timeout} }
- sub _uri { URI->new( sprintf( 'http://github.com/api/v2/json/repos/show/%s/%s/contributors', $_[0]->user, $_[0]->repo ) ); }
- sub _json { JSON->new->allow_nonref }
+ sub ua { LWP::UserAgent->new( timeout => $_[0]->timeout, agent => join ' ', ( __PACKAGE__, $VERSION ) ); }
+#sub user    { $_[0]->{user} }
+# sub repo    { $_[0]->{repo} }
+# sub timeout { $_[0]->{timeout} }
+ sub uri { URI->new( sprintf( 'http://github.com/api/v2/json/repos/show/%s/%s/contributors', $_[0]->user, $_[0]->repo ) ); }
+ sub json { JSON->new->allow_nonref }
  
  sub scores {
      my $self = shift;
