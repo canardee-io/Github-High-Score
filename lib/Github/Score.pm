@@ -19,17 +19,6 @@ use Moose; # automatically turns on strict and warnings
       $self->$_(undef) for qw(ua user json uri timeout);
   }
 
-##  package Point3D;
-##  use Moose;
-##
-##  extends 'Point';
-##
-##  has 'z' => (is => 'rw', isa => 'Int');
-##
-##  after 'clear' => sub {
-##      my $self = shift;
-##      $self->z(0);
-##  }; 
 
  our $VERSION = '0.001';
  $VERSION = eval $VERSION;
@@ -69,11 +58,51 @@ use Moose; # automatically turns on strict and warnings
  
  1;
  
-# ABSTRACT: a really awesome library
-##
+=head1 NAME
+<B>Github::Score
+
 =head1 SYNOPSIS
 use Github::Score;
 
+my $gs1 = Github::Score->new(); ##Bare constructor. Not much use without:
+$gs1->user('Getty'); ## Still need a:
+$gs1->repo('p5-www-duckduckgo');
+
+my $contributors_scores = $gs1->scores();
+## Do stuff with an array of this sort of thing:
+#$VAR1 = [
+#          {
+#            'login' => 'doy',
+#            'contributions' => 119
+#          },
+#          {
+#            'login' => 'stevan',
+#            'contributions' => 36
+#          },
+#          {
+#            'login' => 'jasonmay',
+#            'contributions' => 5
+#          },
+#          {
+#            'login' => 'arcanez',
+#            'contributions' => 3
+#          }
+#        ];
+
+## Save yourself a few key-strokes
+my $gs2 = Github::Score->new(user=>'Getty', repo=>'p5-www-duckduckgo'); 
+$contributors_scores = $gs2->scores();
+
+## Save yourself a few more key-strokes
+my $gs3 = Github::Score->new('Getty/p5-www-duckduckgo'); 
+$contributors_scores = $gs3->scores();
+
+## Can't afford to wait for up to 10 seconds?
+$gs3->timeout(9.99);
+$contributors_scores = $gs3->scores();
+
+
+=head1 DESCRIPTION
 ...
 
 =method method_x
