@@ -13,6 +13,7 @@ use Moose; # automatically turns on strict and warnings
   has 'user' => (is => 'rw', );
   has 'repo' => (is => 'rw', );
   has 'timeout' => (is => 'rw', );
+  has 'api_version' => (is => 'rw', );
 
   sub clear {
       my $self = shift;
@@ -36,11 +37,20 @@ use Moose; # automatically turns on strict and warnings
  
      my $timeout = $args{timeout} || 10;
  
-     bless { user => $args{user}, repo => $args{repo}, timeout => $timeout }, $self;
+     bless { 
+     	user => $args{user}, 
+     	repo => $args{repo}, 
+     	timeout => $timeout,
+     	api_version => ($args{api_version} || 'v2'), 
+     	}, $self;
  }
  
  sub ua { LWP::UserAgent->new( timeout => $_[0]->timeout, agent => join ' ', ( __PACKAGE__, $VERSION ) ); }
- sub uri { URI->new( sprintf( 'http://github.com/api/v2/json/repos/show/%s/%s/contributors', $_[0]->user, $_[0]->repo ) ); }
+ sub uri { 
+ 	URI->new( sprintf( 'http://github.com/api/%s/json/repos/show/%s/%s/contributors', 
+ 	$_[0]->api_version,$_[0]->user, $_[0]->repo ) 
+ 	); 
+ 	}
  sub json { JSON->new->allow_nonref }
  
  sub scores {
