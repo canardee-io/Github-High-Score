@@ -45,7 +45,14 @@ use Moose; # automatically turns on strict and warnings
      	}, $self;
  }
  
- sub ua { LWP::UserAgent->new( timeout => $_[0]->timeout, agent => join ' ', ( __PACKAGE__, $VERSION ) ); }
+ sub ua { 
+ 		LWP::UserAgent->new( 
+ 			timeout => $_[0]->timeout, 
+ 			agent => join ' ', ( __PACKAGE__, $VERSION ) 
+ 			); 
+}
+
+
  sub uri { 
  	URI->new( sprintf( 'http://github.com/api/%s/json/repos/show/%s/%s/contributors', 
  	$_[0]->api_version,$_[0]->user, $_[0]->repo ) 
@@ -67,11 +74,12 @@ use Moose; # automatically turns on strict and warnings
  }
  
  1;
- 
-=head1 NAME
-<B>Github::Score
+__DATA__ 
+
+=head1 NAME B<Github::Score>
 
 =head1 SYNOPSIS
+
 use Github::Score;
 
 my $gs1 = Github::Score->new(); ##Bare constructor. Not much use without:
@@ -113,34 +121,98 @@ $contributors_scores = $gs3->scores();
 
 
 =head1 DESCRIPTION
+
 L<http://github-high-scores.heroku.com/> is a site with a retro-80s look and 
-feel where you can look up the contribution counts for projecs on Github.
-Github::Score is an OO perl API to the site. 
+feel where you can look up the author contribution counts for projecs on Github.
+B<Github::Score> is an OO perl API to the same data from the site aimed at the 
+DuckDuckGo community platform. 
 
 =head1 METHODS
-=method new
+
+=head2 Constructors
+
+=head3 new
 
 Github::Score objects can be constructed in different ways:
+
 =over 4
+
 =item Empty constructor call
 C<new()>
-=item 'Url-style'
+
+=item Single url-style string
 C<new('contributor/github-repo')>
+
 =item Key-value pairs
-C<new(user=>someone, repo=>'some-repo', timeout=> 10_if_you_leave_it_out)>
+C<new(user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)>
 
+=item Hash reference
+C<new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)}>
 
-=method method_y
+=back
 
-This method returns a reason.
+=head2 Accessors
+
+=head3 B<user>
+
+Will set C<$self->{user}> to $_[0], if an argument is given.
+Returns: C<$self->{user}>
+
+=head3 B<repo>
+
+Will set C<$self->{repo}> to $_[0], if an argument is given.
+Returns: C<$self->{repo}>
+
+=head3 B<timeout>
+
+Will set C<$self->{timeout}> to $_[0], if an argument is given.
+Returns: C<$self->{timeout}>
+
+=head3 B<ua>
+
+Returns: A B<LWP::UserAgent> instance
+Note: Do not use this method directly. It is automatically invoked by the
+scores method.
+
+=head3 B<uri>
+
+Returns: A B<URI> instance
+Note: Do not use this method directly. It is automatically invoked by the
+scores method.
+
+=head3 B<json>
+
+Returns: A B<JSON> instance
+Note: Do not use this method directly. It is automatically invoked by the
+scores method.
+
+=head2 Behaviour
+
+=head3 B<scores>
+
+Returns: A reference to a hash of login/contribution pairs
+Note: The hash could be empty if there is some error with the request,
+for example a timeout, or if the query is invalid, for example I<user>
+does not contribute to the repository.
 
 =head1 SEE ALSO
 
-=for :list
-* L<Your::Module>
-* L<Your::Package>
+=over 4
 
-__DATA__
+=item L<Net::GitHub>
+
+=item L<http://github.com>
+
+=item L<App::DuckDuckGo>
+
+=item L<WWW::DuckDuckGo>
+
+=item L<http://duck.co/>
+
+=back
+
+
+=for
 Kind of thing you get from the api:
 $VAR1 = [
           {
@@ -187,3 +259,4 @@ $VAR1 = [
             'contributions' => 3
           }
         ];
+=cut
