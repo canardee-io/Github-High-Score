@@ -1,0 +1,212 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Github::Score</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:rurban@x-ray.at" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#methods">METHODS</a></li>
+	<ul>
+
+		<li><a href="#constructors">Constructors</a></li>
+		<ul>
+
+			<li><a href="#new">new</a></li>
+		</ul>
+
+		<li><a href="#accessors">Accessors</a></li>
+		<ul>
+
+			<li><a href="#user"><strong>user</strong></a></li>
+			<li><a href="#repo"><strong>repo</strong></a></li>
+			<li><a href="#timeout"><strong>timeout</strong></a></li>
+			<li><a href="#ua"><strong>ua</strong></a></li>
+			<li><a href="#uri"><strong>uri</strong></a></li>
+			<li><a href="#json"><strong>json</strong></a></li>
+		</ul>
+
+		<li><a href="#behaviour">Behaviour</a></li>
+		<ul>
+
+			<li><a href="#scores"><strong>scores</strong></a></li>
+		</ul>
+
+	</ul>
+
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Github::Score -- Collect contributions data from the Github api.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+  use Github::Score;
+  
+  my $gs1 = Github::Score-&gt;new(); ##Bare constructor. Not much use without:
+  $gs1-&gt;user('Getty'); ## Still need a:
+  $gs1-&gt;repo('p5-www-duckduckgo');
+  
+  my $contributors_scores = $gs1-&gt;scores();
+  ## Do stuff with an array of this sort of thing:
+  #$VAR1 = [
+  #          {
+  #            'login' =&gt; 'doy',
+  #            'contributions' =&gt; 119
+  #          },
+  #          {
+  #            'login' =&gt; 'stevan',
+  #            'contributions' =&gt; 36
+  #          },
+  #          {
+  #            'login' =&gt; 'jasonmay',
+  #            'contributions' =&gt; 5
+  #          },
+  #          {
+  #            'login' =&gt; 'arcanez',
+  #            'contributions' =&gt; 3
+  #          }
+  #        ];
+  
+  ## Save yourself a few key-strokes
+  my $gs2 = Github::Score-&gt;new(user=&gt;'Getty', repo=&gt;'p5-www-duckduckgo'); 
+  $contributors_scores = $gs2-&gt;scores();
+  
+  ## Save yourself a few more key-strokes
+  my $gs3 = Github::Score-&gt;new('Getty/p5-www-duckduckgo'); 
+  $contributors_scores = $gs3-&gt;scores();
+  
+  ## Can't afford to wait for up to 10 seconds?
+  $gs3-&gt;timeout(9.99);
+  $contributors_scores = $gs3-&gt;scores();</pre>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<pre>
+ <a href="http://github-high-scores.heroku.com/">http://github-high-scores.heroku.com/</a> is a site with a retro-80s look and 
+ feel where you can look up the author contribution counts for projecs on Github.
+ Github::Score is an OO perl API to the same data from the site aimed at the 
+ DuckDuckGo community platform.</pre>
+<p>
+</p>
+<hr />
+<h1><a name="methods">METHODS</a></h1>
+<p>
+</p>
+<h2><a name="constructors">Constructors</a></h2>
+<p>
+</p>
+<h3><a name="new">new</a></h3>
+<pre>
+ Github::Score objects can be constructed in different ways:</pre>
+<dl>
+<dt><strong><a name="empty_constructor_call" class="item">Empty constructor call</a></strong></dt>
+
+<dd>
+<p><code>new()</code></p>
+</dd>
+<dt><strong><a name="single_url_style_string" class="item">Single url-style string</a></strong></dt>
+
+<dd>
+<p><code>new('contributor/github-repo')</code></p>
+</dd>
+<dt><strong><a name="key_value_pairs" class="item">Key-value pairs</a></strong></dt>
+
+<dd>
+<p><code>new(user=&gt;someone, repo=&gt;'some-repo', timeout=&gt; $_10_if_you_leave_it_out)</code></p>
+</dd>
+<dt><strong><a name="hash_reference" class="item">Hash reference</a></strong></dt>
+
+<dd>
+<p><code>new( {user=&gt;someone, repo=&gt;'some-repo', timeout=&gt; $_10_if_you_leave_it_out)}</code></p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="accessors">Accessors</a></h2>
+<p>
+</p>
+<h3><a name="user"><strong>user</strong></a></h3>
+<p>Will set <code>$self-&gt;{user}</code> to <code>$_[0]</code>, if an argument is given.</p>
+<p>Returns: <code>$self-&gt;{user}</code></p>
+<p>
+</p>
+<h3><a name="repo"><strong>repo</strong></a></h3>
+<p>Will set <code>$self-&gt;{repo}</code> to &lt;$_[0]&gt;, if an argument is given.</p>
+<p>Returns: <code>$self-&gt;{repo}</code></p>
+<p>
+</p>
+<h3><a name="timeout"><strong>timeout</strong></a></h3>
+<p>Will set <code>$self-&gt;{timeout}</code> to $_[0], if an argument is given.
+Returns: <code>$self-&gt;{timeout}</code></p>
+<p>
+</p>
+<h3><a name="ua"><strong>ua</strong></a></h3>
+<p>Returns: A <strong>LWP::UserAgent</strong> instance</p>
+<p>Note: Do not use this method directly. It is automatically invoked by the
+scores method.</p>
+<p>
+</p>
+<h3><a name="uri"><strong>uri</strong></a></h3>
+<p>Returns: A <strong>URI</strong> instance</p>
+<p>Note: Do not use this method directly. It is automatically invoked by the
+scores method.</p>
+<p>
+</p>
+<h3><a name="json"><strong>json</strong></a></h3>
+<p>Returns: A <strong>JSON</strong> instance</p>
+<p>Note: Do not use this method directly. It is automatically invoked by the
+scores method.</p>
+<p>
+</p>
+<h2><a name="behaviour">Behaviour</a></h2>
+<p>
+</p>
+<h3><a name="scores"><strong>scores</strong></a></h3>
+<p>Returns: A reference to a hash of login/contribution pairs.</p>
+<p>Note: The hash could be empty if there is some error with the request,
+or example a timeout, or if the query is invalid, for example <em>user</em>
+does not contribute to the repository.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<dl>
+<dt><strong><a name="net_github" class="item"><a href="/Net/GitHub.html">the Net::GitHub manpage</a></a></strong></dt>
+
+<dt><strong><a name="http_github_com" class="item"><a href="http://github.com">http://github.com</a></a></strong></dt>
+
+<dt><strong><a name="app_duckduckgo" class="item"><a href="/App/DuckDuckGo.html">the App::DuckDuckGo manpage</a></a></strong></dt>
+
+<dt><strong><a name="www_duckduckgo" class="item"><a href="/WWW/DuckDuckGo.html">the WWW::DuckDuckGo manpage</a></a></strong></dt>
+
+<dt><strong><a name="http_duck_co" class="item"><a href="http://duck.co/">http://duck.co/</a></a></strong></dt>
+
+</dl>
+
+</body>
+
+</html>

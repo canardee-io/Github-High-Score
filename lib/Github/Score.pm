@@ -76,56 +76,57 @@ use Moose; # automatically turns on strict and warnings
  1;
 __DATA__ 
 
-=head1 NAME B<Github::Score>
+=head1 NAME 
+
+Github::Score -- Collect contributions data from the Github api.
 
 =head1 SYNOPSIS
 
-use Github::Score;
-
-my $gs1 = Github::Score->new(); ##Bare constructor. Not much use without:
-$gs1->user('Getty'); ## Still need a:
-$gs1->repo('p5-www-duckduckgo');
-
-my $contributors_scores = $gs1->scores();
-## Do stuff with an array of this sort of thing:
-#$VAR1 = [
-#          {
-#            'login' => 'doy',
-#            'contributions' => 119
-#          },
-#          {
-#            'login' => 'stevan',
-#            'contributions' => 36
-#          },
-#          {
-#            'login' => 'jasonmay',
-#            'contributions' => 5
-#          },
-#          {
-#            'login' => 'arcanez',
-#            'contributions' => 3
-#          }
-#        ];
-
-## Save yourself a few key-strokes
-my $gs2 = Github::Score->new(user=>'Getty', repo=>'p5-www-duckduckgo'); 
-$contributors_scores = $gs2->scores();
-
-## Save yourself a few more key-strokes
-my $gs3 = Github::Score->new('Getty/p5-www-duckduckgo'); 
-$contributors_scores = $gs3->scores();
-
-## Can't afford to wait for up to 10 seconds?
-$gs3->timeout(9.99);
-$contributors_scores = $gs3->scores();
-
+  use Github::Score;
+  
+  my $gs1 = Github::Score->new(); ##Bare constructor. Not much use without:
+  $gs1->user('Getty'); ## Still need a:
+  $gs1->repo('p5-www-duckduckgo');
+  
+  my $contributors_scores = $gs1->scores();
+  ## Do stuff with an array of this sort of thing:
+  #$VAR1 = [
+  #          {
+  #            'login' => 'doy',
+  #            'contributions' => 119
+  #          },
+  #          {
+  #            'login' => 'stevan',
+  #            'contributions' => 36
+  #          },
+  #          {
+  #            'login' => 'jasonmay',
+  #            'contributions' => 5
+  #          },
+  #          {
+  #            'login' => 'arcanez',
+  #            'contributions' => 3
+  #          }
+  #        ];
+  
+  ## Save yourself a few key-strokes
+  my $gs2 = Github::Score->new(user=>'Getty', repo=>'p5-www-duckduckgo'); 
+  $contributors_scores = $gs2->scores();
+  
+  ## Save yourself a few more key-strokes
+  my $gs3 = Github::Score->new('Getty/p5-www-duckduckgo'); 
+  $contributors_scores = $gs3->scores();
+  
+  ## Can't afford to wait for up to 10 seconds?
+  $gs3->timeout(9.99);
+  $contributors_scores = $gs3->scores();
 
 =head1 DESCRIPTION
 
-L<http://github-high-scores.heroku.com/> is a site with a retro-80s look and 
-feel where you can look up the author contribution counts for projecs on Github.
-B<Github::Score> is an OO perl API to the same data from the site aimed at the 
-DuckDuckGo community platform. 
+ http://github-high-scores.heroku.com/ is a site with a retro-80s look and 
+ feel where you can look up the author contribution counts for projecs on Github.
+ Github::Score is an OO perl API to the same data from the site aimed at the 
+ DuckDuckGo community platform. 
 
 =head1 METHODS
 
@@ -133,21 +134,25 @@ DuckDuckGo community platform.
 
 =head3 new
 
-Github::Score objects can be constructed in different ways:
+ Github::Score objects can be constructed in different ways:
 
 =over 4
 
 =item Empty constructor call
+
 C<new()>
 
 =item Single url-style string
+
 C<new('contributor/github-repo')>
 
 =item Key-value pairs
-C<new(user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)>
+
+C<< new(user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out) >>
 
 =item Hash reference
-C<new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)}>
+
+C<< new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)} >>
 
 =back
 
@@ -155,44 +160,52 @@ C<new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)}>
 
 =head3 B<user>
 
-Will set C<$self->{user}> to $_[0], if an argument is given.
-Returns: C<$self->{user}>
+Will set C<< $self->{user} >> to C<$_[0]>, if an argument is given.
+
+Returns: C<< $self->{user} >>
 
 =head3 B<repo>
 
-Will set C<$self->{repo}> to $_[0], if an argument is given.
-Returns: C<$self->{repo}>
+Will set C<< $self->{repo} >> to <$_[0]>, if an argument is given.
+
+Returns: C<< $self->{repo} >>
 
 =head3 B<timeout>
 
-Will set C<$self->{timeout}> to $_[0], if an argument is given.
-Returns: C<$self->{timeout}>
+Will set C<<  $self->{timeout} >> to $_[0], if an argument is given.
+Returns: C<< $self->{timeout} >>
 
 =head3 B<ua>
 
 Returns: A B<LWP::UserAgent> instance
+
 Note: Do not use this method directly. It is automatically invoked by the
 scores method.
 
 =head3 B<uri>
 
 Returns: A B<URI> instance
+
 Note: Do not use this method directly. It is automatically invoked by the
 scores method.
 
 =head3 B<json>
 
 Returns: A B<JSON> instance
+
 Note: Do not use this method directly. It is automatically invoked by the
 scores method.
+
+
 
 =head2 Behaviour
 
 =head3 B<scores>
 
-Returns: A reference to a hash of login/contribution pairs
+Returns: A reference to a hash of login/contribution pairs.
+
 Note: The hash could be empty if there is some error with the request,
-for example a timeout, or if the query is invalid, for example I<user>
+or example a timeout, or if the query is invalid, for example I<user>
 does not contribute to the repository.
 
 =head1 SEE ALSO
