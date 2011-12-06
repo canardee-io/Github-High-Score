@@ -1,0 +1,23 @@
+
+                Github::Score
+
+DESCRIPTION
+
+Perl access to the http://github-high-scores.heroku.com/ information via the github v2 api.
+
+DOCUMENTATION
+
+The documentation is in Score.pm in the form of POD format perldocs.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+LICENSE & COPYRIGHT
+
+See the LICENCE file in this distribution.

@@ -1,4 +1,6 @@
 package Github::Score;
+#ABSTRACT: Pull author contribution counts for github repos
+
 use strict;
 use warnings;
 use LWP;
@@ -75,6 +77,7 @@ use Moose; # automatically turns on strict and warnings
  
  1;
 __DATA__ 
+
 
 =head1 NAME 
 

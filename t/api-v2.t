@@ -1,4 +1,4 @@
-use Test::More tests => 18;
+use Test::More tests => 21;
 use Data::Dumper;
  
 BEGIN { use_ok 'Github::Score'; }
