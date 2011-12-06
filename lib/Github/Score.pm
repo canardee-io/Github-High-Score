@@ -81,7 +81,7 @@ __DATA__
 
 =head1 NAME 
 
-Github::Score -- Collect contributions data from the Github api.
+Github::Score - Collect contributions data from the Github api.
 
 =head1 SYNOPSIS
 
@@ -176,7 +176,10 @@ Returns: C<< $self->{repo} >>
 =head3 B<timeout>
 
 Will set C<<  $self->{timeout} >> to $_[0], if an argument is given.
+
 Returns: C<< $self->{timeout} >>
+
+Note: Defaults to 10 when the object is constructed.
 
 =head3 B<ua>
 
@@ -210,6 +213,24 @@ Returns: A reference to a hash of login/contribution pairs.
 Note: The hash could be empty if there is some error with the request,
 or example a timeout, or if the query is invalid, for example I<user>
 does not contribute to the repository.
+
+=head1 BUGS
+
+None known, but they will be there somewhere.
+
+=head1 TODO
+
+=over 4
+
+=item Github api v3 support
+
+=item Support regex user/repo queries
+
+=item Retry on timeout?
+
+=item Better documentation.
+
+=back
 
 =head1 SEE ALSO
 
