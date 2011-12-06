@@ -113,11 +113,22 @@ $contributors_scores = $gs3->scores();
 
 
 =head1 DESCRIPTION
-...
+L<http://github-high-scores.heroku.com/> is a site with a retro-80s look and 
+feel where you can look up the contribution counts for projecs on Github.
+Github::Score is an OO perl API to the site. 
 
-=method method_x
+=head1 METHODS
+=method new
 
-This method does something experimental.
+Github::Score objects can be constructed in different ways:
+=over 4
+=item Empty constructor call
+C<new()>
+=item 'Url-style'
+C<new('contributor/github-repo')>
+=item Key-value pairs
+C<new(user=>someone, repo=>'some-repo', timeout=> 10_if_you_leave_it_out)>
+
 
 =method method_y
 
