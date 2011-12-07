@@ -7,16 +7,11 @@ Perl access to the http://github-high-scores.heroku.com/ information via the git
 
 DOCUMENTATION
 
-The documentation is in Score.pm in the form of POD format perldocs.
+The documentation is in Score.pm in POD format.
 
 INSTALLATION
 
-To install this module type the following:
-
-   perl Makefile.PL
-   make
-   make test
-   make install
+To install see the INSTALL file in this distribution.
 
 LICENSE & COPYRIGHT
 
