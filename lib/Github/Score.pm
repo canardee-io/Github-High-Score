@@ -206,7 +206,7 @@ C<<   new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out
     Returns: A reference to a hash of login/contribution pairs.
     
     Note: The hash could be empty if there is some error with the request,
-    or example a timeout, or if the query is invalid, for example I<user>
+    or example a timeout, or if the query is invalid, for example user
     does not contribute to the repository.
 
 =head1 BUGS
