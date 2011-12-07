@@ -126,10 +126,10 @@ Github::Score - Collect contributions data from the Github api.
 
 =head1 DESCRIPTION
 
- http://github-high-scores.heroku.com/ is a site with a retro-80s look and 
- feel where you can look up the author contribution counts for projecs on Github.
- Github::Score is an OO perl API to the same data from the site aimed at the 
- DuckDuckGo community platform. 
+  http://github-high-scores.heroku.com/ is a site with a retro-80s look and 
+  feel where you can look up the author contribution counts for projecs on Github.
+  Github::Score is an OO perl API to the same data from the site aimed at the 
+  DuckDuckGo community platform. 
 
 =head1 METHODS
 
@@ -143,19 +143,19 @@ Github::Score - Collect contributions data from the Github api.
 
 =item Empty constructor call
 
-C<new()>
+C<    new()>
 
 =item Single url-style string
 
-C<new('contributor/github-repo')>
+C<    new('contributor/github-repo')>
 
 =item Key-value pairs
 
-C<< new(user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out) >>
+C<<   new(user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out) >>
 
 =item Hash reference
 
-C<< new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)} >>
+C<<   new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)} >>
 
 =back
 
@@ -163,64 +163,59 @@ C<< new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out)}
 
 =head3 B<user>
 
-Will set C<< $self->{user} >> to C<$_[0]>, if an argument is given.
-
-Returns: C<< $self->{user} >>
+    Will set $self->{user} to $_[0], if an argument is given.
+    Returns: $self->{user}
 
 =head3 B<repo>
 
-Will set C<< $self->{repo} >> to <$_[0]>, if an argument is given.
-
-Returns: C<< $self->{repo} >>
+    Will set $self-{repo}  to $_[0], if an argument is given.
+    Returns: $self-{repo} 
 
 =head3 B<timeout>
 
-Will set C<<  $self->{timeout} >> to $_[0], if an argument is given.
+    Will set $self->{timeout} to $_[0], if an argument is given.
+    Returns: $self->{timeout}
 
-Returns: C<< $self->{timeout} >>
-
-Note: Defaults to 10 when the object is constructed.
+    Note: Defaults to 10 when the object is constructed.
 
 =head3 B<ua>
 
-Returns: A B<LWP::UserAgent> instance
+    Returns: A LWP::UserAgent instance
 
-Note: Do not use this method directly. It is automatically invoked by the
-scores method.
+    Note: Do not use this method directly. It is automatically invoked by the
+    scores method.
 
 =head3 B<uri>
 
-Returns: A B<URI> instance
-
-Note: Do not use this method directly. It is automatically invoked by the
-scores method.
+    Returns: A URI instance
+    
+    Note: Do not use this method directly. It is automatically invoked by the
+    scores method.
 
 =head3 B<json>
 
-Returns: A B<JSON> instance
-
-Note: Do not use this method directly. It is automatically invoked by the
-scores method.
-
-
+    Returns: A JSON instance
+    
+    Note: Do not use this method directly. It is automatically invoked by the
+    scores method.
 
 =head2 Behaviour
 
 =head3 B<scores>
 
-Returns: A reference to a hash of login/contribution pairs.
-
-Note: The hash could be empty if there is some error with the request,
-or example a timeout, or if the query is invalid, for example I<user>
-does not contribute to the repository.
+    Returns: A reference to a hash of login/contribution pairs.
+    
+    Note: The hash could be empty if there is some error with the request,
+    or example a timeout, or if the query is invalid, for example I<user>
+    does not contribute to the repository.
 
 =head1 BUGS
 
-None known, but they will be there somewhere.
+    None known, but they will be there somewhere.
 
 =head1 TODO
 
-=over 4
+=over 6
 
 =item Github api v3 support
 
@@ -235,6 +230,8 @@ None known, but they will be there somewhere.
 =head1 SEE ALSO
 
 =over 4
+
+=item L<http://github-high-scores.heroku.com/>
 
 =item L<Net::GitHub>
 
