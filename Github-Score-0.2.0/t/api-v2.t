@@ -1,4 +1,4 @@
-use Test::More tests => 24;
+use Test::More tests => 21;
 use Data::Dumper;
  
 BEGIN { use_ok 'Github::Score'; }
@@ -28,12 +28,6 @@ my $gs3 = Github::Score->new('Getty/p5-www-duckduckgo');
 cmp_ok $gs2->user(), 'eq', 'Getty', 'User (Getty) set with url-style constructor arg';
 cmp_ok $gs1->repo(), 'eq', 'p5-www-duckduckgo', 'Repo (p5-www-duckduckgo) set with url-style constructor arg';
 
-my $gs4 = Github::Score->new('Getty/p5-www-duckduckgo', timeout=>42); 
-cmp_ok $gs4->user(), 'eq', 'Getty', 'User (Getty) set with url-style constructor arg';
-cmp_ok $gs4->repo(), 'eq', 'p5-www-duckduckgo', 'Repo (p5-www-duckduckgo) set with url-style constructor arg';
-cmp_ok $gs4->timeout(), '==', 42, 'Timeout (42) set after url-style constructor arg';
-
-
 cmp_ok $gs3->timeout(), '==', 10, 'Default timer is 10';
 cmp_ok $gs3->timeout(5), '==', 5, 'Timer reset to 5';
 my $author_contrib_map = $gs1->scores();
@@ -43,8 +37,8 @@ cmp_ok ( $_->scores, '~~' , $author_contrib_map, "Different constructor, same sc
  
 
 {
-	my $gs = Github::Score->new('stevan/ox', timeout => 0.00001);
-	is($gs->timeout(), 0.00001,'Silly low non-zero timeout value');
+	my $gs = Github::Score->new('stevan/ox', timeout => 0.0001);
+	is($gs->timeout(), 0.0001,'Silly low non-zero timeout value');
 	cmp_ok my $count = keys %{$gs->scores}, '==',0,'No scores in silly timeout case';
 }
 

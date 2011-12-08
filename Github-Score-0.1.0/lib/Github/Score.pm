@@ -12,50 +12,10 @@ use Data::Dumper;
 
 use Moose; # automatically turns on strict and warnings
 
- our $VERSION = '0.001';
- $VERSION = eval $VERSION;
-
   has 'user' => (is => 'rw', );
   has 'repo' => (is => 'rw', );
-  has 'timeout' => (is => 'rw', default => 10);
-  has 'api_version' => (is => 'rw', default => 'v2');
-  has 'json' => (
-  		is => 'rw',
-  		default => sub {JSON->new->allow_nonref},
-	);
-  has 'ua' => (
-  		is => 'rw',
-	);
-
-
-sub BUILDARGS  {
-      my $class = shift;
-
-      defined $_[0] || return;
-      
-      (ref $_[0]) && (@_ == 1) and return $_[0];
-      
-      (ref $_[0]) and return {@$_[0],@_};
-      
-      ( (@_ % 2) && (!ref $_[0] ) ) and do {
-      	my $url = shift; 
-      	unshift @_, url => $url;
-		};
-
-          return {@_}
-}
-
-  sub BUILD {
-     my $self = shift;
-     $self->ua($self->_ua);
-
-     my %args = defined $_[0] ? %{$_[0]} : return;
- 
-     if ( exists $args{url} ) {
-     	@{$self}{qw(user repo)} =  ( split /\//, delete $args{url} );
-     }
- 
-  }
+  has 'timeout' => (is => 'rw', );
+  has 'api_version' => (is => 'rw', );
 
   sub clear {
       my $self = shift;
@@ -63,8 +23,10 @@ sub BUILDARGS  {
   }
 
 
+ our $VERSION = '0.001';
+ $VERSION = eval $VERSION;
  
- sub _new {
+ sub new {
      my $self = shift;
      my @args = @_;
  
@@ -85,7 +47,7 @@ sub BUILDARGS  {
      	}, $self;
  }
  
- sub _ua { 
+ sub ua { 
  		LWP::UserAgent->new( 
  			timeout => $_[0]->timeout, 
  			agent => join ' ', ( __PACKAGE__, $VERSION ) 
@@ -98,7 +60,7 @@ sub BUILDARGS  {
  	$_[0]->api_version,$_[0]->user, $_[0]->repo ) 
  	); 
  	}
-
+ sub json { JSON->new->allow_nonref }
  
  sub scores {
      my $self = shift;
@@ -114,6 +76,32 @@ sub BUILDARGS  {
  }
  
  1;
+
+
+=pod
+
+=head1 NAME
+
+Github::Score - Pull author contribution counts for github repos
+
+=head1 VERSION
+
+version 0.1.0
+
+=head1 AUTHOR
+
+justin.d.hunter@gmail.com
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by AHB.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
+
 __DATA__ 
 
 
