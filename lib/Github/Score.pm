@@ -25,6 +25,13 @@ use Moose; # automatically turns on strict and warnings
 	);
   has 'ua' => (
   		is => 'rw',
+  		lazy => 1,
+  		builder => '_ua',
+	);
+  has 'uri' => (
+  		is => 'rw',
+  		lazy => 1,
+  		builder => '_uri',
 	);
 
 
@@ -47,7 +54,6 @@ sub BUILDARGS  {
 
   sub BUILD {
      my $self = shift;
-     $self->ua($self->_ua);
 
      my %args = defined $_[0] ? %{$_[0]} : return;
  
@@ -73,7 +79,7 @@ sub BUILDARGS  {
 }
 
 
- sub uri { 
+ sub _uri { 
  	URI->new( sprintf( 'http://github.com/api/%s/json/repos/show/%s/%s/contributors', 
  	$_[0]->api_version,$_[0]->user, $_[0]->repo ) 
  	); 
