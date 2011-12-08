@@ -59,31 +59,11 @@ sub BUILDARGS  {
 
   sub clear {
       my $self = shift;
-      $self->$_(undef) for qw(ua user json uri timeout);
+      $self->$_(undef) for qw(ua user json uri timeout api_version);
   }
 
 
  
- sub _new {
-     my $self = shift;
-     my @args = @_;
- 
-     unshift @args, 'url' if @args % 2 && !ref( $args[0] );
- 
-     my %args = ref( $args[0] ) ? %{ $args[0] } : @args;
-     if ( exists $args{url} ) {
-         ( $args{user}, $args{repo} ) = ( split /\//, delete $args{url} );
-     }
- 
-     my $timeout = $args{timeout} || 10;
- 
-     bless { 
-     	user => $args{user}, 
-     	repo => $args{repo}, 
-     	timeout => $timeout,
-     	api_version => ($args{api_version} || 'v2'), 
-     	}, $self;
- }
  
  sub _ua { 
  		LWP::UserAgent->new( 
