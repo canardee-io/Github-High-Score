@@ -271,7 +271,7 @@ C<<   new( {user=>someone, repo=>'some-repo', timeout=> $_10_if_you_leave_it_out
 
 
 =for
-Kind of thing you get from the api:
+Kind of thing you get from the v2 api:
 $VAR1 = [
           {
             'gravatar_id' => 'dd9aceaf17982bc33972b3bb8701cd19',
@@ -317,4 +317,33 @@ $VAR1 = [
             'contributions' => 3
           }
         ];
+v3 api        
+[
+  {
+    "sha": "7638417db6d59f3c431d3e1f261cc637155684cd",
+    "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/7638417db6d59f3c431d3e1f261cc637155684cd",
+    "author": {
+      "date": "2010-04-10T14:10:01-07:00",
+      "name": "Scott Chacon",
+      "email": "schacon@gmail.com"
+    },
+    "committer": {
+      "date": "2010-04-10T14:10:01-07:00",
+      "name": "Scott Chacon",
+      "email": "schacon@gmail.com"
+    },
+    "message": "added readme, because im a good github citizen\n",
+    "tree": {
+      "url": "https://api.github.com/repos/octocat/Hello-World/git/trees/691272480426f78a0138979dd3ce63b77f706feb",
+      "sha": "691272480426f78a0138979dd3ce63b77f706feb"
+    },
+    "parents": [
+      {
+        "url": "https://api.github.com/repos/octocat/Hello-World/git/commits/1acc419d4d6a9ce985db7be48c6349a0475975b5",
+        "sha": "1acc419d4d6a9ce985db7be48c6349a0475975b5"
+      }
+    ]
+  }
+]
+
 =cut
